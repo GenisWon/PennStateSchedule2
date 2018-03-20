@@ -17,7 +17,7 @@ public class PennStateSchedule {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        JFrame frame = new NewJFrame();
+        JFrame frame = new MainMenuFrame();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
