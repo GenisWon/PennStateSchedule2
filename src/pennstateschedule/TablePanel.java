@@ -38,6 +38,7 @@ public class TablePanel extends javax.swing.JPanel {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
@@ -62,7 +63,7 @@ public class TablePanel extends javax.swing.JPanel {
             }
         });
 
-        searchButton.setText("Go");
+        searchButton.setText("Test");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
