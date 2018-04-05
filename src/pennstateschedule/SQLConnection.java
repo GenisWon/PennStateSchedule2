@@ -43,7 +43,7 @@ public class SQLConnection
     private String strHost = "istdata.bk.psu.edu";
     private String strPort = "3306";
     private String strUser = "jqj5405";
-    private String strPassword = JOptionPane.showInputDialog(null, "Password: ");
+    private String strPassword = "berks1649";
     private String strDB = "jqj5405";
     
     public SQLConnection() throws SQLException
