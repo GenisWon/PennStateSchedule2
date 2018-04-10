@@ -17,11 +17,11 @@ import java.util.logging.Logger;
  */
 public class Preferences {
     
-    String id;
-    String COURSE_id;
-    String TIMESLOT_id;
-    String FACULTY_id;
-    String addendum;
+    private String id;
+    private String COURSE_id;
+    private String TIMESLOT_id;
+    private String FACULTY_id;
+    private String addendum;
     
     //Get ID of preference.
     public String getID(){
