@@ -33,7 +33,7 @@ public class Preferences {
     }
     
     //Get ID of course.
-    public String COURSE_id(){
+    public String getCOURSE_id(){
         return this.COURSE_id;
     }
     
@@ -42,7 +42,7 @@ public class Preferences {
     }
     
     //Get ID of Timeslot.
-    public String TIMESLOT_id(){
+    public String getTIMESLOT_id(){
         return this.TIMESLOT_id;
     }
     
@@ -51,7 +51,7 @@ public class Preferences {
     }
     
     //Get ID of Faculty.
-    public String FACULTY_id(){
+    public String getFACULTY_id(){
         return this.FACULTY_id;
     }
     
@@ -60,7 +60,7 @@ public class Preferences {
     }
     
     //Get ID of addendum.
-    public String addendum_id(){
+    public String getaddendum_id(){
         return this.addendum;
     }
     
