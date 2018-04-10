@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -97,5 +99,38 @@ public class SQLConnection
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+       public List getPreferences()
+    {
+        List prefList = new ArrayList();
+        try 
+        {
+            PreparedStatement ps = connect.prepareStatement("select * from course");
+            result = ps.executeQuery();
+            
+            state = connect.createStatement();
+            String query = "select * from preference";
+            result = state.executeQuery(query);
+            
+        
+            while (result.next())
+            {
+                String FACULTY_id = result.getString("FACULTY_id");
+                String id = result.getString("id");
+                String TIMESLOT_id = result.getString("TIMESLOT_id");
+                String addendum = result.getString("addendum");
+                String COURSE_id = result.getString("COURSE_id");
+                Preferences preferences = new Preferences (id, COURSE_id, TIMESLOT_id, FACULTY_id, addendum);
+                prefList.add(preferences);
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return prefList;
+    } 
+    
     
 } // end of class SQLConnection

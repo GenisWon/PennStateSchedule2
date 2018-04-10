@@ -1,5 +1,15 @@
 package pennstateschedule;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.List;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -160,6 +170,16 @@ public class FacultyPreferences extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try{
+                 SQLConnection connector  = new SQLConnection();   
+                 List facaultyIDList = connector.getPreferences();
+                 
+              
+                 System.out.println(facaultyIDList);
+                }catch(Exception ex){
+                      ex.printStackTrace();
+                        }
+                
                 new FacultyPreferences().setVisible(true);
             }
         });
@@ -173,6 +193,5 @@ public class FacultyPreferences extends javax.swing.JFrame {
     private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables
 
-    
     
 }
