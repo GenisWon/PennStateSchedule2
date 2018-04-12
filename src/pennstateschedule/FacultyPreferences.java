@@ -1,13 +1,6 @@
 package pennstateschedule;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.List;
 
 /*
@@ -143,7 +136,7 @@ public class FacultyPreferences extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -183,6 +176,10 @@ public class FacultyPreferences extends javax.swing.JFrame {
                 new FacultyPreferences().setVisible(true);
             }
         });
+        
+        /*Preferences faculty = new Preferences();
+        faculty.getPreferences();
+        System.out.println("Faculty ID: " + faculty.FACULTY_id + "\tPreference ID:" + faculty.id + "\tTimeslot ID: " + faculty.TIMESLOT_id + "\tCourse ID: " + faculty.COURSE_id);*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

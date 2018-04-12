@@ -5,12 +5,6 @@
  */
 package pennstateschedule;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author djg5596
@@ -73,6 +67,5 @@ public class Preferences {
    this.FACULTY_id = FACULTY_id;
    this.TIMESLOT_id = TIMESLOT_id;
    this.addendum = addendum;
-    
     }
 }
