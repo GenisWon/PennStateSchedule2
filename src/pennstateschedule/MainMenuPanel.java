@@ -29,28 +29,43 @@ public class MainMenuPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        prevScheduleButton = new javax.swing.JButton();
+        facPrefButton = new javax.swing.JButton();
+        currentClassButton = new javax.swing.JButton();
+        currentSchedButton = new javax.swing.JButton();
 
-        jButton1.setText("View Previous Semesters");
-
-        jButton2.setText("View/Edit Faculty Preferences");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
-            }
-        });
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        prevScheduleButton.setText("View Previous Semesters");
+        prevScheduleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                prevScheduleButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("View Current Class List");
+        facPrefButton.setText("View/Edit Faculty Preferences");
+        facPrefButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                facPrefButtonMouseClicked(evt);
+            }
+        });
+        facPrefButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                facPrefButtonActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("View Current Schedule");
+        currentClassButton.setText("View Current Class List");
+        currentClassButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                currentClassButtonActionPerformed(evt);
+            }
+        });
+
+        currentSchedButton.setText("View Current Schedule");
+        currentSchedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                currentSchedButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -60,14 +75,14 @@ public class MainMenuPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(prevScheduleButton)
                         .addGap(56, 56, 56)
-                        .addComponent(jButton2)
+                        .addComponent(facPrefButton)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(currentClassButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)))
+                        .addComponent(currentSchedButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -75,31 +90,46 @@ public class MainMenuPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(prevScheduleButton)
+                    .addComponent(facPrefButton))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(currentClassButton)
+                    .addComponent(currentSchedButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void facPrefButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facPrefButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_facPrefButtonActionPerformed
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+    private void facPrefButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_facPrefButtonMouseClicked
         // TODO add your handling code here:
         JFrame facPref = new FacultyPreferences();
         facPref.setVisible(true);
-    }//GEN-LAST:event_jButton2MouseClicked
+    }//GEN-LAST:event_facPrefButtonMouseClicked
+
+    private void prevScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevScheduleButtonActionPerformed
+        JFrame prevSched = new PreviousSchedules();
+        prevSched.setVisible(true);
+    }//GEN-LAST:event_prevScheduleButtonActionPerformed
+
+    private void currentClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentClassButtonActionPerformed
+        JFrame classList = new NewClasses();
+        classList.setVisible(true);
+    }//GEN-LAST:event_currentClassButtonActionPerformed
+
+    private void currentSchedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentSchedButtonActionPerformed
+        JFrame schedList = new NewSchedule();
+        schedList.setVisible(true);
+    }//GEN-LAST:event_currentSchedButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton currentClassButton;
+    private javax.swing.JButton currentSchedButton;
+    private javax.swing.JButton facPrefButton;
+    private javax.swing.JButton prevScheduleButton;
     // End of variables declaration//GEN-END:variables
 }
