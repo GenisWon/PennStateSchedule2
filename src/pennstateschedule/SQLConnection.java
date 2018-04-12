@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -35,11 +36,10 @@ public class SQLConnection
     {
         SQLConnection sc = new SQLConnection();
         sc.getData();
-
-    }
+    } // main
     
     private Connection connect;
-    private Statement state;
+    private Statement stment;
     private ResultSet result;
     
     private String strHost = "istdata.bk.psu.edu";
@@ -51,8 +51,10 @@ public class SQLConnection
     public SQLConnection() throws SQLException
     {
         connectDatabase();
-    }
+    } // constructor
     
+    
+/////////////////////////CONNECT TO DATABASE////////////////////////////////////       
     public void connectDatabase() throws SQLException 
     {
         try {
@@ -66,15 +68,17 @@ public class SQLConnection
             System.out.println("Connecting to: " + sbConnection.toString());
             connect = DriverManager.getConnection(sbConnection.toString());
             //connect = DriverManager.getConnection("jdbc:mysql://istdata.bk.psu.edu:3306/jqj5405", strUser, strDB);
-        } 
+        } // try
         catch (SQLException ex) 
         {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } // catch
         
         System.out.println("Connected to product:  " + connect.getMetaData().getDatabaseProductName());
-    }
+    } // connectDatabase
     
+    
+/////////////////////////DISPLAY DATA FROM QUERY////////////////////////////////        
     public void getData()
     {
         try 
@@ -82,23 +86,38 @@ public class SQLConnection
             //PreparedStatement ps = connect.prepareStatement("select * from course");
             //result = ps.executeQuery();
             
-            state = connect.createStatement();
+            stment = connect.createStatement();
             String query = "select * from course";
-            result = state.executeQuery(query);
+            result = stment.executeQuery(query);
             
-            System.out.println("Available Courses");
-            while (result.next())
-            {
-                String id = result.getString("id");
-                String program = result.getString("program");
-                System.out.println("ID: " + id + "\tProgram: " + program);
-            }
-        } 
+            // hide column starting from left most column
+            int[] intColsToHide = new int[0];
+
+            // sends data to tablepanel
+            TablePanel table = new TablePanel(result, 0,intColsToHide);
+
+            // display tablepanel on JFrame
+            JFrame frame = new JFrame();
+            frame.add(table);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setBounds(400, 300, 1000, 300);
+            frame.setVisible(true);
+
+            
+//            // output out to output console
+//            System.out.println("Available Courses");
+//            while (result.next())
+//            {
+//                String id = result.getString("id");
+//                String program = result.getString("program");
+//                System.out.println("ID: " + id + "\tProgram: " + program);
+//            } // while
+        } // try
         catch (SQLException ex) 
         {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+        } // catch
+    } // getData
     
     
        public List getPreferences()
@@ -109,9 +128,9 @@ public class SQLConnection
             PreparedStatement ps = connect.prepareStatement("select * from course");
             result = ps.executeQuery();
             
-            state = connect.createStatement();
+            stment = connect.createStatement();
             String query = "select * from preference";
-            result = state.executeQuery(query);
+            result = stment.executeQuery(query);
             
         
             while (result.next())

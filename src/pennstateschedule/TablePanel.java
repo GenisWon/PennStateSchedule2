@@ -6,19 +6,60 @@ package pennstateschedule;
  * and open the template in the editor.
  */
 
+import java.sql.ResultSet;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 /**
  *
  * @author cjd258
  */
 public class TablePanel extends javax.swing.JPanel {
 
+    int intColumnNo;
+    ResultSet result;
     /**
      * Creates new form TablePanel
      */
-    public TablePanel() {
+    
+    public TablePanel(ResultSet rsIn, int intInColumnNo, int[] arrHideCols) 
+    {
         initComponents();
-    }
+        populateTable(rsIn, intInColumnNo, arrHideCols);
+    } // constructor
 
+    public void populateTable(ResultSet rsIn, int intInColumnNo, int[] arrHideCols) 
+    {
+        // get resultset
+        result = rsIn;
+        
+        // set resultset to table
+        TableModel tmResults = DbUtils.resultSetToTableModel(rsIn);
+        jtResults.setModel(tmResults);
+        
+        // get column number
+        intColumnNo = intInColumnNo;
+        
+        // get column number
+        int intHideColumnNo = arrHideCols.length;
+        if (intHideColumnNo > 0)
+        {
+            for (int i=0; i < intHideColumnNo; i++)
+            {
+                TableColumn column = jtResults.getColumnModel().getColumn(arrHideCols[i]);
+                System.out.println("Hiding column " + column.getHeaderValue().toString());     
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+                column.setWidth(0);
+                column.setPreferredWidth(0);
+            } // for
+        } // if there are columns to hide
+        
+        jtResults.setAutoCreateRowSorter(true);
+        jScrollPanel.doLayout();
+        jtResults.doLayout();
+    } // populateTable
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,12 +69,12 @@ public class TablePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dataTable = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jScrollPanel = new javax.swing.JScrollPane();
+        jtResults = new javax.swing.JTable();
         searchTextField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -45,7 +86,7 @@ public class TablePanel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        dataTable.setViewportView(jTable1);
+        jScrollPanel.setViewportView(jtResults);
 
         searchTextField.setText("Search");
         searchTextField.setToolTipText("");
@@ -72,7 +113,7 @@ public class TablePanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dataTable, javax.swing.GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+                    .addComponent(jScrollPanel)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -88,7 +129,7 @@ public class TablePanel extends javax.swing.JPanel {
                     .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton))
                 .addGap(18, 18, 18)
-                .addComponent(dataTable, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -111,8 +152,8 @@ public class TablePanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane dataTable;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPanel;
+    private javax.swing.JTable jtResults;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables
