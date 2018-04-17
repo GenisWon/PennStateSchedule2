@@ -174,12 +174,15 @@ public class FacultyPreferences extends javax.swing.JFrame {
                         }
                 
                 new FacultyPreferences().setVisible(true);
-            }
+                
+                System.out.println("Faculty Preferences");
+                Preferences preferences = new Preferences();
+                System.out.println("Select * from preferences");
+                System.out.println("Faculty ID: " + preferences.getFACULTY_id() + "\tPreference ID:" + preferences.getID() + "\tTimeslot ID: " + preferences.getTIMESLOT_id() + "\tCourse ID: " + preferences.getCOURSE_id());
+                }
         });
         
-        /*Preferences faculty = new Preferences();
-        faculty.getPreferences();
-        System.out.println("Faculty ID: " + faculty.FACULTY_id + "\tPreference ID:" + faculty.id + "\tTimeslot ID: " + faculty.TIMESLOT_id + "\tCourse ID: " + faculty.COURSE_id);*/
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

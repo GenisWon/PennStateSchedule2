@@ -148,8 +148,44 @@ public class SQLConnection
         {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return prefList;
+        return prefList;        
     } 
-    
-    
+            public List getFaculty()
+    {
+        List facultyList = new ArrayList();
+        try 
+        {
+            PreparedStatement ps = connect.prepareStatement("select * from course");
+            result = ps.executeQuery();
+            
+            stment = connect.createStatement();
+            String query = "select * from faculty";
+            result = stment.executeQuery(query);
+            
+        
+            while (result.next())
+            {
+                String id = result.getString("id");
+                String fName = result.getString("fName");
+                String lName = result.getString("lName");
+                String streetNum = result.getString("streetNum");
+                String streetName = result.getString("streetName");
+                String city = result.getString("city");
+                String state = result.getString("state");
+                String zip = result.getString("zip");
+                String phone = result.getString("phone");
+                String email = result.getString("email");
+                String workType = result.getString("workType");
+                String department = result.getString("department");
+                String ROOM_id = result.getString("ROOM_id");
+                Faculty faculty = new Faculty(id, fName, lName, streetNum, streetName, city, state, zip, phone, email, workType, department, ROOM_id);
+                facultyList.add(faculty);
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return facultyList;
+    }    
 } // end of class SQLConnection
