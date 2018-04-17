@@ -2,6 +2,7 @@ package pennstateschedule;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.HashMap;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -165,7 +166,7 @@ public class FacultyPreferences extends javax.swing.JFrame {
             public void run() {
                 try{
                  SQLConnection connector  = new SQLConnection();   
-                 List facaultyIDList = connector.getPreferences();
+                 HashMap facaultyIDList = connector.getAttributes("faculty");
                  
               
                  System.out.println(facaultyIDList);

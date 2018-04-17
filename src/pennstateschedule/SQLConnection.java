@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -35,7 +37,16 @@ public class SQLConnection
     public static void main(String[] args) throws SQLException 
     {
         SQLConnection sc = new SQLConnection();
-        sc.getData(); 
+        
+        /*
+        HashMap hm = new HashMap();
+        hm = sc.getAttributes("course");
+        System.out.println(Arrays.asList(hm));
+        */
+        
+        Course course1 = new Course(sc);
+
+        sc.getData();
     } // main
     
     private Connection connect;
@@ -120,35 +131,39 @@ public class SQLConnection
     } // getData
     
     
-       public List getPreferences()
+    public HashMap getAttributes(String tableName)
     {
-        List prefList = new ArrayList();
+        List rowTitles = new ArrayList();
+        List<Object> results = new ArrayList<Object>();
+        HashMap hm = new HashMap();
+        
         try 
         {
-            PreparedStatement ps = connect.prepareStatement("select * from course");
-            result = ps.executeQuery();
-            
             stment = connect.createStatement();
-            String query = "select * from preference";
+            String query = "select * from " + tableName;
             result = stment.executeQuery(query);
+            ResultSetMetaData resultMetaData = result.getMetaData();
             
-        
-            while (result.next())
+            int numColumns = resultMetaData.getColumnCount();
+            for (int i = 1; i <= numColumns; i++)
             {
-                String FACULTY_id = result.getString("FACULTY_id");
-                String id = result.getString("id");
-                String TIMESLOT_id = result.getString("TIMESLOT_id");
-                String addendum = result.getString("addendum");
-                String COURSE_id = result.getString("COURSE_id");
-                Preferences preferences = new Preferences (id, COURSE_id, TIMESLOT_id, FACULTY_id, addendum);
-                prefList.add(preferences);
+                rowTitles.add(resultMetaData.getColumnLabel(i));
             }
+            
+            result.next();
+            for (int i = 0; i < numColumns; i++)
+            {
+                System.out.println("test");
+                hm.put(rowTitles.get(i), result.getString((String)rowTitles.get(i)));
+            }
+            
+            
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return prefList;
+        return hm;
     } 
     
     

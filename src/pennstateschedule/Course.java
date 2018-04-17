@@ -5,6 +5,9 @@
  */
 package pennstateschedule;
 
+import java.util.Arrays;
+import java.util.HashMap;
+
 /**
  *
  * @author cjd258
@@ -17,10 +20,16 @@ public class Course {
     private String prerequisite;
     private String classAttribute;
     private String credit;
+    private HashMap hm;
+    SQLConnection connect;
     
-    public void Course()
+    public Course(SQLConnection sc)
     {
+        hm = connect.getAttributes("course");
         
+        System.out.println(Arrays.asList(hm));
+        
+        this.id = (String)hm.get("id");
     }
     
     public void setId(String id)
