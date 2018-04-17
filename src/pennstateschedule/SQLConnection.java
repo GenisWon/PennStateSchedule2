@@ -35,7 +35,7 @@ public class SQLConnection
     public static void main(String[] args) throws SQLException 
     {
         SQLConnection sc = new SQLConnection();
-        sc.getData();
+        sc.getData(); 
     } // main
     
     private Connection connect;
