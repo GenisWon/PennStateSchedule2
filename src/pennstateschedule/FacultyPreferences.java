@@ -21,6 +21,7 @@ public class FacultyPreferences extends javax.swing.JFrame {
      */
     public FacultyPreferences() {
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     /**

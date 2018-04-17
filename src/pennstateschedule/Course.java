@@ -21,15 +21,20 @@ public class Course {
     private String classAttribute;
     private String credit;
     private HashMap hm;
-    SQLConnection connect;
     
     public Course(SQLConnection sc)
     {
-        hm = connect.getAttributes("course");
+        hm = sc.getAttributes("COURSE");
         
         System.out.println(Arrays.asList(hm));
         
         this.id = (String)hm.get("id");
+        this.program = (String)hm.get("program");
+        this.programNo = (String)hm.get("programNo");
+        this.name = (String)hm.get("name");
+        this.prerequisite = (String)hm.get("prerequisite");
+        this.classAttribute = (String)hm.get("classAttribute");
+        this.credit = (String)hm.get("credit");
     }
     
     public void setId(String id)

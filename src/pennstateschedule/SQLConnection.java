@@ -45,6 +45,7 @@ public class SQLConnection
         */
         
         Course course1 = new Course(sc);
+        System.out.println(course1.getProgram());
 
         sc.getData();
     } // main
@@ -153,7 +154,6 @@ public class SQLConnection
             result.next();
             for (int i = 0; i < numColumns; i++)
             {
-                System.out.println("test");
                 hm.put(rowTitles.get(i), result.getString((String)rowTitles.get(i)));
             }
             
