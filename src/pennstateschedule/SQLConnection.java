@@ -27,7 +27,7 @@ import java.util.HashMap;
 *Modified Class Template
  */
 
-/************************MODIFICATION LOG ************************************
+/************************** MODIFICATION LOG ********************************
 
 
 *****************************************************************************/
@@ -53,11 +53,11 @@ public class SQLConnection
     private Statement stment;
     private ResultSet result;
     
-    private String strHost = "istdata.bk.psu.edu";
-    private String strPort = "3306";
-    private String strUser = "jqj5405";
-    private String strPassword = "berks1649";
-    private String strDB = "jqj5405";
+    private final String strHost = "istdata.bk.psu.edu";
+    private final String strPort = "3306";
+    private final String strUser = "jqj5405";
+    private final String strPassword = "berks1649";
+    private final String strDB = "jqj5405";
     
     public SQLConnection() throws SQLException
     {
@@ -66,9 +66,10 @@ public class SQLConnection
     
     
 /////////////////////////CONNECT TO DATABASE////////////////////////////////////       
-    public void connectDatabase() throws SQLException 
+    public final void connectDatabase() throws SQLException 
     {
-        try {
+        try 
+        {
             StringBuilder sbConnection = new StringBuilder();
             sbConnection.append("jdbc:mysql://" + strHost);
             sbConnection.append(":" + strPort);
@@ -88,6 +89,11 @@ public class SQLConnection
         System.out.println("Connected to product:  " + connect.getMetaData().getDatabaseProductName());
     } // connectDatabase
     
+/////////////////////////GET CONNECTION/////////////////////////////////////////
+    public Connection getConnection()
+    {
+        return connect;
+    } // getData
     
 /////////////////////////DISPLAY DATA FROM QUERY////////////////////////////////        
     public void getData()
@@ -101,13 +107,14 @@ public class SQLConnection
             String query = "select * from course";
             result = stment.executeQuery(query);
             
-            // hide column starting from left most column
+            // hide column based on column number specified in array
             int[] intColsToHide = new int[0];
+            //intColsToHide[0] = 1; // hide column2 [column# starts at 0]
 
             // sends data to tablepanel
-            TablePanel table = new TablePanel(result, 0,intColsToHide);
+            TablePanel table = new TablePanel(result, intColsToHide);
 
-            // display tablepanel on JFrame
+            // display tablepanel on JFrame (Temporary)
             JFrame frame = new JFrame();
             frame.add(table);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -148,23 +155,21 @@ public class SQLConnection
             for (int i = 1; i <= numColumns; i++)
             {
                 rowTitles.add(resultMetaData.getColumnLabel(i));
-            }
-            
+            } // for        
             result.next();
+            
             for (int i = 0; i < numColumns; i++)
             {
                 System.out.println("test");
                 hm.put(rowTitles.get(i), result.getString((String)rowTitles.get(i)));
-            }
-            
-            
-        } 
+            } // for  
+        } // try
         catch (SQLException ex) 
         {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } //catch
+        
         return hm;
-    } 
-    
+    } // Hashmap 
     
 } // end of class SQLConnection

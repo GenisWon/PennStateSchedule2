@@ -14,21 +14,23 @@ import net.proteanit.sql.DbUtils;
  *
  * @author cjd258
  */
-public class TablePanel extends javax.swing.JPanel {
+public final class TablePanel extends javax.swing.JPanel {
 
     int intColumnNo;
     ResultSet result;
     /**
      * Creates new form TablePanel
+     * @param rsIn
+     * @param arrHideCols
      */
     
-    public TablePanel(ResultSet rsIn, int intInColumnNo, int[] arrHideCols) 
+    public TablePanel(ResultSet rsIn, int[] arrHideCols) 
     {
         initComponents();
-        populateTable(rsIn, intInColumnNo, arrHideCols);
+        populateTable(rsIn, arrHideCols);
     } // constructor
 
-    public void populateTable(ResultSet rsIn, int intInColumnNo, int[] arrHideCols) 
+    public void populateTable(ResultSet rsIn, int[] arrHideCols) 
     {
         // get resultset
         result = rsIn;
@@ -37,10 +39,10 @@ public class TablePanel extends javax.swing.JPanel {
         TableModel tmResults = DbUtils.resultSetToTableModel(rsIn);
         jtResults.setModel(tmResults);
         
-        // get column number
-        intColumnNo = intInColumnNo;
+//        // get column number
+//        intColumnNo = intInColumnNo;
         
-        // get column number
+        // get and hide columns from array
         int intHideColumnNo = arrHideCols.length;
         if (intHideColumnNo > 0)
         {
@@ -58,6 +60,7 @@ public class TablePanel extends javax.swing.JPanel {
         jtResults.setAutoCreateRowSorter(true);
         jScrollPanel.doLayout();
         jtResults.doLayout();
+        
     } // populateTable
     
     /**
