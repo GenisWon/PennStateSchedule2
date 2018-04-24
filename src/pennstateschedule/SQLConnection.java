@@ -91,7 +91,7 @@ public class SQLConnection
     
     
 /////////////////////////DISPLAY DATA FROM QUERY////////////////////////////////        
-    public void getData()
+    public ResultSet getData()
     {
         try 
         {
@@ -102,18 +102,7 @@ public class SQLConnection
             String query = "select * from course";
             result = stment.executeQuery(query);
             
-            // hide column starting from left most column
-            int[] intColsToHide = new int[0];
-
-            // sends data to tablepanel
-            TablePanel table = new TablePanel(result, 0,intColsToHide);
-
-            // display tablepanel on JFrame
-            JFrame frame = new JFrame();
-            frame.add(table);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setBounds(400, 300, 1000, 300);
-            frame.setVisible(true);
+            
 
             
 //            // output out to output console
@@ -129,6 +118,8 @@ public class SQLConnection
         {
             Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
         } // catch
+        
+        return result;
     } // getData
     
     

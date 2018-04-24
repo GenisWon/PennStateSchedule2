@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,16 +33,52 @@ public class FacultyPreferences extends javax.swing.JFrame {
     /**
      * Creates new form FacultyPreferences
      */
-    public FacultyPreferences() throws SQLException {
+    public FacultyPreferences() throws SQLException 
+    {
         initComponents();
-        TablePanel = new TablePanel();
-        add(TablePanel);
+        
+        TablePanel tPanel = new TablePanel();
+        add(tPanel);
+        setVisible(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         
         SQLConnection sc = new SQLConnection();
         connect = sc.getConnection();
         dbQuery(sc);
+        
+        int[] intColsToHide = new int[0];
+        populateTable(sc.getData(), intColsToHide);
     }
+    
+    public void populateTable(ResultSet rsIn, int[] arrHideCols) 
+    {
+        // get resultset
+        result = rsIn;
+        
+        // set resultset to table
+        TableModel tmResults = DbUtils.resultSetToTableModel(rsIn);
+        jtResults.setModel(tmResults);
+        
+        
+        // get column number
+        int intHideColumnNo = arrHideCols.length;
+        if (intHideColumnNo > 0)
+        {
+            for (int i=0; i < intHideColumnNo; i++)
+            {
+                TableColumn column = jtResults.getColumnModel().getColumn(arrHideCols[i]);
+                System.out.println("Hiding column " + column.getHeaderValue().toString());     
+                column.setMinWidth(0);
+                column.setMaxWidth(0);
+                column.setWidth(0);
+                column.setPreferredWidth(0);
+            } // for
+        } // if there are columns to hide
+        
+        jtResults.setAutoCreateRowSorter(true);
+        jScrollPanel.doLayout();
+        jtResults.doLayout();
+    } // populateTable
     
     private void dbQuery(SQLConnection sc) {
    
@@ -61,21 +100,93 @@ public class FacultyPreferences extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        searchTextField = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
+        jScrollPanel = new javax.swing.JScrollPane();
+        jtResults = new javax.swing.JTable();
+
+        jButton1.setText("jButton1");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        searchTextField.setText("Search");
+        searchTextField.setToolTipText("");
+        searchTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchTextFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchTextFieldFocusLost(evt);
+            }
+        });
+        searchTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTextFieldActionPerformed(evt);
+            }
+        });
+
+        searchButton.setText("Test");
+
+        jtResults.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPanel.setViewportView(jtResults);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPanel)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchButton)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 362, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 10, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void searchTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusGained
+        if(searchTextField.getText().trim().equals("Search")) {
+            searchTextField.setText("");
+        }
+    }//GEN-LAST:event_searchTextFieldFocusGained
+
+    private void searchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusLost
+        if(searchTextField.getText().trim().equals("")) {
+            searchTextField.setText("Search");
+        }
+    }//GEN-LAST:event_searchTextFieldFocusLost
+
+    private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -105,20 +216,6 @@ public class FacultyPreferences extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try{
-                 SQLConnection connector  = new SQLConnection();   
-                 HashMap facaultyIDList = connector.getAttributes("faculty");
-                 
-              
-                 System.out.println(facaultyIDList);
-                }catch(Exception ex){
-                      ex.printStackTrace();
-                        }
-                
-            }
-        });
         
         /*Preferences faculty = new Preferences();
         faculty.getPreferences();
@@ -126,6 +223,11 @@ public class FacultyPreferences extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPanel;
+    private javax.swing.JTable jtResults;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables
 
     

@@ -5,6 +5,9 @@
  */
 package pennstateschedule;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -106,8 +109,13 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private void facPrefButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_facPrefButtonMouseClicked
         // TODO add your handling code here:
-        JFrame facPref = new FacultyPreferences();
-        facPref.setVisible(true);
+        JFrame facPref;
+        try {
+            facPref = new FacultyPreferences();
+            facPref.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_facPrefButtonMouseClicked
 
     private void prevScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevScheduleButtonActionPerformed
