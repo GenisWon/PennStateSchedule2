@@ -28,6 +28,10 @@ public class TablePanel extends javax.swing.JPanel {
         populateTable(rsIn, intInColumnNo, arrHideCols);
     } // constructor
 
+    TablePanel() {
+        initComponents(); 
+    }
+
     public void populateTable(ResultSet rsIn, int intInColumnNo, int[] arrHideCols) 
     {
         // get resultset

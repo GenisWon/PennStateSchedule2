@@ -166,5 +166,9 @@ public class SQLConnection
         return hm;
     } 
     
+    public Connection getConnection() {
+        return connect;
+    }
+    
     
 } // end of class SQLConnection
