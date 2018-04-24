@@ -44,7 +44,7 @@ public class SQLConnection
         System.out.println(Arrays.asList(hm));
         */
         
-        Course course1 = new Course(sc);
+        //Course course1 = new Course(sc);
 
         sc.getData();
     } // main
@@ -120,16 +120,6 @@ public class SQLConnection
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setBounds(400, 300, 1000, 300);
             frame.setVisible(true);
-
-            
-//            // output out to output console
-//            System.out.println("Available Courses");
-//            while (result.next())
-//            {
-//                String id = result.getString("id");
-//                String program = result.getString("program");
-//                System.out.println("ID: " + id + "\tProgram: " + program);
-//            } // while
         } // try
         catch (SQLException ex) 
         {

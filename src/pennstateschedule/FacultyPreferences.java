@@ -1,8 +1,12 @@
 package pennstateschedule;
 
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,8 +18,8 @@ import java.util.HashMap;
  *
  * @author cjd258
  */
-public class FacultyPreferences extends javax.swing.JFrame {
-
+public class FacultyPreferences extends JFrame 
+{
     /**
      * Creates new form FacultyPreferences
      */
@@ -137,7 +141,8 @@ public class FacultyPreferences extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws SQLException {
+    public static void main(String args[]) throws SQLException 
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -162,26 +167,30 @@ public class FacultyPreferences extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try{
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
+            public void run() 
+            {
+                try
+                {
                  SQLConnection connector  = new SQLConnection();   
                  HashMap facaultyIDList = connector.getAttributes("faculty");
-                 
               
                  System.out.println(facaultyIDList);
-                }catch(Exception ex){
-                      ex.printStackTrace();
-                        }
+                } // try
+                catch(Exception ex)
+                {
+                    ex.printStackTrace();
+                } // catch
                 
                 new FacultyPreferences().setVisible(true);
-            }
+            } // run
         });
         
         /*Preferences faculty = new Preferences();
         faculty.getPreferences();
         System.out.println("Faculty ID: " + faculty.FACULTY_id + "\tPreference ID:" + faculty.id + "\tTimeslot ID: " + faculty.TIMESLOT_id + "\tCourse ID: " + faculty.COURSE_id);*/
-    }
+    } // main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane dataTable;
