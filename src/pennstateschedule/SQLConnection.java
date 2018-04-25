@@ -15,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,22 +32,7 @@ import java.util.HashMap;
 *****************************************************************************/
 
 public class SQLConnection 
-{    
-    public static void main(String[] args) throws SQLException 
-    {
-        SQLConnection sc = new SQLConnection();
-        
-        /*
-        HashMap hm = new HashMap();
-        hm = sc.getAttributes("course");
-        System.out.println(Arrays.asList(hm));
-        */
-        
-        //Course course1 = new Course(sc);
-
-        sc.getData();
-    } // main
-    
+{   
     private Connection connect;
     private Statement stment;
     private ResultSet result;
@@ -95,38 +79,25 @@ public class SQLConnection
         return connect;
     } // getData
     
-/////////////////////////DISPLAY DATA FROM QUERY////////////////////////////////        
-    public void getData()
-    {
-        try 
-        {
-            //PreparedStatement ps = connect.prepareStatement("select * from course");
-            //result = ps.executeQuery();
-            
-            stment = connect.createStatement();
-            String query = "select * from course";
-            result = stment.executeQuery(query);
-            
-            // hide column based on column number specified in array
-            int[] intColsToHide = new int[0];
-            //intColsToHide[0] = 1; // hide column2 [column# starts at 0]
-
-            // sends data to tablepanel
-            TablePanel table = new TablePanel(result, intColsToHide);
-
-            // display tablepanel on JFrame (Temporary)
-            JFrame frame = new JFrame();
-            frame.add(table);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setBounds(400, 300, 1000, 300);
-            frame.setVisible(true);
-        } // try
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
-        } // catch
-    } // getData
-    
+/////////////////////////DISPLAY SAMPLE DATA FROM QUERY/////////////////////////     
+//    public ResultSet getData()
+//    {
+//        try 
+//        {
+//            //PreparedStatement ps = connect.prepareStatement("select * from course");
+//            //result = ps.executeQuery();
+//            
+//            stment = connect.createStatement();
+//            String query = "select * from course";
+//            result = stment.executeQuery(query);
+//        } // try
+//        catch (SQLException ex) 
+//        {
+//            Logger.getLogger(SQLConnection.class.getName()).log(Level.SEVERE, null, ex);
+//        } // catch
+//        
+//        return result;
+//    } // getData
     
     public HashMap getAttributes(String tableName)
     {

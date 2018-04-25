@@ -1,12 +1,14 @@
 package pennstateschedule;
 
-
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.HashMap;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -18,15 +20,70 @@ import javax.swing.JFrame;
  *
  * @author cjd258
  */
-public class FacultyPreferences extends JFrame 
-{
+public class FacultyPreferences extends javax.swing.JFrame {
+
+    private Connection connect;
+    private Statement stment;
+    private ResultSet result;
+    JPanel TablePanel;
+    String query;
     /**
      * Creates new form FacultyPreferences
+     * @throws java.sql.SQLException
      */
-    public FacultyPreferences() {
+    public FacultyPreferences() throws SQLException 
+    {
         initComponents();
-    }
-
+               
+        SQLConnection sc = new SQLConnection();
+        connect = sc.getConnection();
+        result = dbQuery(sc);
+        
+        int[] intColsToHide = new int[0];
+        populateTable(result, intColsToHide);
+    } // constructor
+    
+    public void populateTable(ResultSet rsIn, int[] arrHideCols) 
+    {
+        // set resultset to table
+        TableModel tmResults = DbUtils.resultSetToTableModel(rsIn);
+        jtResults.setModel(tmResults);
+        
+//        // get column number
+//        int intHideColumnNo = arrHideCols.length;
+//        if (intHideColumnNo > 0)
+//        {
+//            for (int i=0; i < intHideColumnNo; i++)
+//            {
+//                TableColumn column = jtResults.getColumnModel().getColumn(arrHideCols[i]);
+//                System.out.println("Hiding column " + column.getHeaderValue().toString());     
+//                column.setMinWidth(0);
+//                column.setMaxWidth(0);
+//                column.setWidth(0);
+//                column.setPreferredWidth(0);
+//            } // for
+//        } // if there are columns to hide
+        
+        jtResults.setAutoCreateRowSorter(true);
+        jScrollPanel.doLayout();
+        jtResults.doLayout();
+    } // populateTable
+    
+    private ResultSet dbQuery(SQLConnection sc) 
+    {
+        try 
+        {
+            stment = connect.createStatement();
+            query = "call facPreferences";
+            result = stment.executeQuery(query);
+        } // try
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(FacultyPreferences.class.getName()).log(Level.SEVERE, null, ex);
+        } // catch
+        
+        return result;
+    } // dbQuery
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -36,15 +93,15 @@ public class FacultyPreferences extends JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        dataTable = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        searchButton = new javax.swing.JButton();
+        jpFacPref = new javax.swing.JPanel();
+        jScrollPanel = new javax.swing.JScrollPane();
+        jtResults = new javax.swing.JTable();
         searchTextField = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtResults.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -56,9 +113,7 @@ public class FacultyPreferences extends JFrame
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        dataTable.setViewportView(jTable1);
-
-        searchButton.setText("Go");
+        jScrollPanel.setViewportView(jtResults);
 
         searchTextField.setText("Search");
         searchTextField.setToolTipText("");
@@ -76,30 +131,32 @@ public class FacultyPreferences extends JFrame
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        searchButton.setText("Test");
+
+        javax.swing.GroupLayout jpFacPrefLayout = new javax.swing.GroupLayout(jpFacPref);
+        jpFacPref.setLayout(jpFacPrefLayout);
+        jpFacPrefLayout.setHorizontalGroup(
+            jpFacPrefLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFacPrefLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dataTable, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jpFacPrefLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1026, Short.MAX_VALUE)
+                    .addGroup(jpFacPrefLayout.createSequentialGroup()
                         .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchButton)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jpFacPrefLayout.setVerticalGroup(
+            jpFacPrefLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpFacPrefLayout.createSequentialGroup()
+                .addGap(0, 14, Short.MAX_VALUE)
+                .addGroup(jpFacPrefLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton))
                 .addGap(18, 18, 18)
-                .addComponent(dataTable, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -107,30 +164,17 @@ public class FacultyPreferences extends JFrame
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jpFacPref, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jpFacPref, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchTextFieldActionPerformed
-
-    private void searchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusLost
-        if(searchTextField.getText().trim().equals("")) {
-            searchTextField.setText("Search");
-        }
-    }//GEN-LAST:event_searchTextFieldFocusLost
 
     private void searchTextFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusGained
         if(searchTextField.getText().trim().equals("Search")) {
@@ -138,11 +182,20 @@ public class FacultyPreferences extends JFrame
         }
     }//GEN-LAST:event_searchTextFieldFocusGained
 
+    private void searchTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchTextFieldFocusLost
+        if(searchTextField.getText().trim().equals("")) {
+            searchTextField.setText("Search");
+        }
+    }//GEN-LAST:event_searchTextFieldFocusLost
+
+    private void searchTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTextFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws SQLException 
-    {
+    public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -167,25 +220,6 @@ public class FacultyPreferences extends JFrame
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() 
-        {
-            public void run() 
-            {
-                try
-                {
-                 SQLConnection connector  = new SQLConnection();   
-                 HashMap facaultyIDList = connector.getAttributes("faculty");
-              
-                 System.out.println(facaultyIDList);
-                } // try
-                catch(Exception ex)
-                {
-                    ex.printStackTrace();
-                } // catch
-                
-                new FacultyPreferences().setVisible(true);
-            } // run
-        });
         
         /*Preferences faculty = new Preferences();
         faculty.getPreferences();
@@ -193,12 +227,10 @@ public class FacultyPreferences extends JFrame
     } // main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane dataTable;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPanel;
+    private javax.swing.JPanel jpFacPref;
+    private javax.swing.JTable jtResults;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchTextField;
     // End of variables declaration//GEN-END:variables
-
-    
-}
+} // FacultyPreferences

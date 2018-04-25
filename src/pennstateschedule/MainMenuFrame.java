@@ -12,14 +12,14 @@ import javax.swing.JFrame;
  *
  * @author cjd258
  */
-public class MainMenuFrame extends javax.swing.JFrame {
+public class MainMenuFrame extends JFrame {
 
     /**
      * Creates new form NewJFrame
      */
     public MainMenuFrame() {
         initComponents();
-    }
+    } // constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,11 +30,7 @@ public class MainMenuFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        mainMenuPanel1 = new pennstateschedule.MainMenuPanel();
-        mainMenuPanel2 = new pennstateschedule.MainMenuPanel();
-
-        jTextField1.setText("jTextField1");
+        jpMainMenu = new pennstateschedule.MainMenuPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,14 +39,15 @@ public class MainMenuFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(mainMenuPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jpMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainMenuPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jpMainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -93,11 +90,9 @@ public class MainMenuFrame extends javax.swing.JFrame {
                 new MainMenuFrame().setVisible(true);
             }
         });
-    }
+    } // main
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField jTextField1;
-    private pennstateschedule.MainMenuPanel mainMenuPanel1;
-    private pennstateschedule.MainMenuPanel mainMenuPanel2;
+    private pennstateschedule.MainMenuPanel jpMainMenu;
     // End of variables declaration//GEN-END:variables
-}
+} // MainMenuFrame

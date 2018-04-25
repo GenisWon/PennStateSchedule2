@@ -16,10 +16,13 @@ public class PennStateSchedule {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
+        // Set initial JFrame
         JFrame frame = new LoginFrame();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
+    } // main
     
-}
+} // PennStateSchedule

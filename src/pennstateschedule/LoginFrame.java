@@ -13,15 +13,14 @@ import javax.swing.JOptionPane;
  *
  * @author mak5956
  */
-public class LoginFrame extends javax.swing.JFrame {
+public class LoginFrame extends JFrame {
     private UserList newList;
     
-    public LoginFrame() {
+    public LoginFrame() 
+    {
         newList = new UserList();
-        initComponents();
-        
-        
-    }
+        initComponents(); 
+    } // constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -205,35 +204,43 @@ public class LoginFrame extends javax.swing.JFrame {
                 new LoginFrame().setVisible(true);
             }
         });
-    }
+    } // main
     
-    private void authenticate() {
-        
+    private void authenticate() 
+    {
         int i;
         boolean verified = false;
         User activeUser;
         
-        for (i = 0; i < newList.getUserList().size() ; i++) {
-                if (newList.getUserList().get(i).getUserName().equals(newList.getCredentials()[0]) &&
-                        newList.getUserList().get(i).getPassword().equals(newList.getCredentials()[1])){
-                                   verified = true;
-                                   break;
-                } else {verified = false;}   
-            }
+        for (i = 0; i < newList.getUserList().size() ; i++) 
+        {
+            if (newList.getUserList().get(i).getUserName().equals(newList.getCredentials()[0]) &&
+                    newList.getUserList().get(i).getPassword().equals(newList.getCredentials()[1]))
+            {
+               verified = true;
+               break;
+            } // if
+            else {verified = false;}   
+        } // for
             if (verified){
                 this.dispose();
                 activeUser = newList.getUserList().get(i);
                 JFrame frame = new MainMenuFrame();
+                frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);;
-            } else{
+            } // if
+            else
+            {
                 showLoginError();
-            }
-    }
+            } // else
+            
+    } // authenticate
     
-    void showLoginError() {
+    void showLoginError() 
+    {
         JOptionPane.showMessageDialog(loginPanel, "Incorrect username or password");
-    }
+    } // showLoginError
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
@@ -248,4 +255,4 @@ public class LoginFrame extends javax.swing.JFrame {
     private javax.swing.JPanel loginPanel;
     private javax.swing.JPasswordField passwordField;
     // End of variables declaration//GEN-END:variables
-}
+} // LoginFrame

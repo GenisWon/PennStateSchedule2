@@ -9,35 +9,38 @@ public class UserList {
     private ArrayList<User> userList;
     private String[] credentials;
     
-    UserList() {
+    public UserList() 
+    {
         userList = new ArrayList<>();
         credentials = new String[2];
-    } 
+    } // constructor
     
-    public void initializeTestUsers(){
-        System.out.println("in iTU");
-        String[] userName = {"mkeller", "cdelvecchio", "dgerman", "jjiang"};
+    public void initializeTestUsers()
+    {
+        User newPart;
         
-        for (int i = 0; i < 4; i++)
+        System.out.println("in iTU");
+        String[] userName = {"mkeller", "cdelvecchio", "dgerman", "jjiang", ""};
+        
+        for (int i = 0; i < userName.length; i++)
         {
-            User newPart;
-            newPart = new Participant(userName[i], "testpass", false);
+            newPart = new Participant(userName[i], "", false);
             userList.add(newPart);
-        }
-        for (int i = 0; i < 4; i++)
-        {
-            System.out.println(userList.get(i).getPassword());
-            System.out.println(userList.get(i).getUserName());
-        }
-    }
+            
+            System.out.println(userList.get(i).getUserName() + " " 
+                    + userList.get(i).getPassword());
+        } // add user from userName[array] to userList<ArrayList>
+    } // initializeTestUsers
     
-    public ArrayList<User> getUserList(){
+    public ArrayList<User> getUserList()
+    {
         return userList;
-    }
+    } // getUserList
 
-    public String[] getCredentials() {
+    public String[] getCredentials() 
+    {
         return credentials;
-    }
+    } // getCredentials
     
     /* Future feature for adding and removing users requiring XML or some database connection
     public void addUser(String infUserName, String infPassword){
@@ -58,4 +61,4 @@ public class UserList {
     }
     */
     
-}
+} // UserList

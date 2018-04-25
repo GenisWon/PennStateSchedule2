@@ -5,6 +5,9 @@
  */
 package pennstateschedule;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -18,7 +21,7 @@ public class MainMenuPanel extends javax.swing.JPanel {
      */
     public MainMenuPanel() {
         initComponents();
-    }
+    } // constructor
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -106,23 +109,39 @@ public class MainMenuPanel extends javax.swing.JPanel {
 
     private void facPrefButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_facPrefButtonMouseClicked
         // TODO add your handling code here:
-        JFrame facPref = new FacultyPreferences();
-        facPref.setVisible(true);
+        JFrame facPref;
+        try 
+        {
+            facPref = new FacultyPreferences();
+            facPref.setLocationRelativeTo(null);
+            facPref.setVisible(true);
+            facPref.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        } // try
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(MainMenuPanel.class.getName()).log(Level.SEVERE, null, ex);
+        } // catch
     }//GEN-LAST:event_facPrefButtonMouseClicked
 
     private void prevScheduleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevScheduleButtonActionPerformed
         JFrame prevSched = new PreviousSchedules();
+        prevSched.setLocationRelativeTo(null);
         prevSched.setVisible(true);
+        prevSched.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_prevScheduleButtonActionPerformed
 
     private void currentClassButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentClassButtonActionPerformed
         JFrame classList = new NewClasses();
+        classList.setLocationRelativeTo(null);
         classList.setVisible(true);
+        classList.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_currentClassButtonActionPerformed
 
     private void currentSchedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentSchedButtonActionPerformed
         JFrame schedList = new NewSchedule();
+        schedList.setLocationRelativeTo(null);
         schedList.setVisible(true);
+        schedList.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_currentSchedButtonActionPerformed
 
 
@@ -132,4 +151,4 @@ public class MainMenuPanel extends javax.swing.JPanel {
     private javax.swing.JButton facPrefButton;
     private javax.swing.JButton prevScheduleButton;
     // End of variables declaration//GEN-END:variables
-}
+} // MainMenuPanel
