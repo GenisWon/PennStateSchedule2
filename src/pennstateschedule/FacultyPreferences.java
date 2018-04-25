@@ -33,6 +33,7 @@ public class FacultyPreferences extends javax.swing.JFrame {
      */
     public FacultyPreferences() throws SQLException 
     {
+        super("Faculty Preference"); // set's title of frame
         initComponents();
                
         SQLConnection sc = new SQLConnection();

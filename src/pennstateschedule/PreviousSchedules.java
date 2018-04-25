@@ -15,6 +15,7 @@ public class PreviousSchedules extends javax.swing.JFrame {
      * Creates new form PreviousSchedules
      */
     public PreviousSchedules() {
+        super("Past Schedule"); // set's title of frame
         initComponents();
     }
 

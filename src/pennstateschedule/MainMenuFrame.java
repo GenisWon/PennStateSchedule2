@@ -18,6 +18,7 @@ public class MainMenuFrame extends JFrame {
      * Creates new form NewJFrame
      */
     public MainMenuFrame() {
+        super("Home"); // set's title of frame
         initComponents();
     } // constructor
 

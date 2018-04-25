@@ -15,6 +15,7 @@ public class NewClasses extends javax.swing.JFrame {
      * Creates new form NewClasses
      */
     public NewClasses() {
+        super("Class List"); // set's title of frame
         initComponents();
     }
 

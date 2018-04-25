@@ -15,6 +15,7 @@ public class NewSchedule extends javax.swing.JFrame {
      * Creates new form NewSchedule
      */
     public NewSchedule() {
+        super("Latest Schedule"); // set's title of frame
         initComponents();
     }
 

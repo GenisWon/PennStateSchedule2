@@ -18,6 +18,7 @@ public class LoginFrame extends JFrame {
     
     public LoginFrame() 
     {
+        super("Login"); // set's title of frame
         newList = new UserList();
         initComponents(); 
     } // constructor
